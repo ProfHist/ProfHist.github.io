@@ -104,5 +104,6 @@ send2.addEventListener('click', () => sendValue('2'));
 send3.addEventListener('click', () => sendValue('3'));
 send4.addEventListener('click', () => sendValue('4'));
 
+
 setStatus(false);
 log('micro:bit Web Bluetooth UART gestartet');
