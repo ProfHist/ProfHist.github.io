@@ -6,10 +6,6 @@ let device, server, uartService, txChar, rxChar;
 
 const statusEl = document.getElementById('status');
 const connectBtn = document.getElementById('connectBtn');
-const send1 = document.getElementById('send1');
-const send2 = document.getElementById('send2');
-const send3 = document.getElementById('send3');
-const send4 = document.getElementById('send4');
 const receivedData = document.getElementById('receivedData');
 const debugInfo = document.getElementById('debugInfo');
 
@@ -29,7 +25,15 @@ function setStatus(connected) {
     statusEl.className = 'disconnected';
     connectBtn.textContent = 'Mit Micro:bit verbinden';
   }
-  send1.disabled = send2.disabled = send3.disabled = send4.disabled = !connected;
+  // Richtungstasten und Stopp-Button aktivieren/deaktivieren
+  const directionBtns = [
+    document.getElementById('sendUp'),
+    document.getElementById('sendDown'),
+    document.getElementById('sendLeft'),
+    document.getElementById('sendRight'),
+    document.getElementById('sendStop')
+  ];
+  directionBtns.forEach(btn => { if (btn) btn.disabled = !connected; });
 }
 
 async function connect() {
@@ -99,11 +103,18 @@ connectBtn.addEventListener('click', () => {
   }
 });
 
-send1.addEventListener('click', () => sendValue('1'));
-send2.addEventListener('click', () => sendValue('2'));
-send3.addEventListener('click', () => sendValue('3'));
-send4.addEventListener('click', () => sendValue('4'));
+// Event Listeners für die Richtungstasten
+const sendUp = document.getElementById('sendUp');
+const sendDown = document.getElementById('sendDown');
+const sendLeft = document.getElementById('sendLeft');
+const sendRight = document.getElementById('sendRight');
+const sendStop = document.getElementById('sendStop');
 
+if (sendUp) sendUp.addEventListener('click', () => sendValue('1'));
+if (sendDown) sendDown.addEventListener('click', () => sendValue('2'));
+if (sendLeft) sendLeft.addEventListener('click', () => sendValue('3'));
+if (sendRight) sendRight.addEventListener('click', () => sendValue('4'));
+if (sendStop) sendStop.addEventListener('click', () => sendValue('0'));
 
 setStatus(false);
 log('micro:bit Web Bluetooth UART gestartet');
