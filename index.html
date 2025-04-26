@@ -14,6 +14,7 @@
         <div id="status" class="status disconnected">Nicht verbunden</div>
         <button id="connectBtn" class="btn primary">Mit Micro:bit verbinden</button>
         <div class="controls">
+
             <div class="button-cross">
                 <button id="sendUp" class="btn direction-btn up" aria-label="Hoch">
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +44,19 @@
                   </svg>
                 </button>
             </div>
+                        <!-- Zusätzliche Steuerungs-Buttons für Licht und Blinker -->
+                        <div class="extra-controls" style="margin-top: 18px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+  <!-- Erste Zeile: Licht an/aus -->
+  <div style="display: flex; gap: 12px;">
+    <button id="lichtAn" class="btn extra-btn" aria-label="Licht an">💡 An</button>
+    <button id="lichtAus" class="btn extra-btn" aria-label="Licht aus">💡 Aus</button>
+  </div>
+  <!-- Zweite Zeile: Blinken links/rechts -->
+  <div style="display: flex; gap: 12px;">
+    <button id="blinkenLinks" class="btn extra-btn" aria-label="Blinken links">⬅️ Blinken</button>
+    <button id="blinkenRechts" class="btn extra-btn" aria-label="Blinken rechts">Blinken ➡️</button>
+  </div>
+</div>
         </div>
         <div class="data-section">
             <h2 style="font-family:'Montserrat',Arial,sans-serif;font-size:1.18rem;color:#6366f1;margin-bottom:10px;letter-spacing:0.5px;">Empfangene Daten</h2>
@@ -52,6 +66,10 @@
             </div>
         </div>
         <div id="debugInfo" style="margin-top: 1em;"></div>
+        <!-- Hinweis zur Tastatursteuerung für Licht -->
+        <div style="margin-top: 16px; text-align: center; color: #6366f1; font-size: 1em; opacity: 0.85;">
+          <span><b>Licht ein/aus:</b> Leertaste &nbsp; | &nbsp; <b>Blinken:</b> a = links, d = rechts</span>
+        </div>
     </div>
     <footer style="margin-top:32px;text-align:center;color:#64748b;font-size:0.98em;opacity:0.85;letter-spacing:0.2px;">
         <span style="font-family:'Montserrat',Arial,sans-serif;">micro:bit Web Bluetooth UART &mdash; <span style="color:#6366f1;">Cascade Edition</span></span>

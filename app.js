@@ -116,5 +116,82 @@ if (sendLeft) sendLeft.addEventListener('click', () => sendValue('3'));
 if (sendRight) sendRight.addEventListener('click', () => sendValue('4'));
 if (sendStop) sendStop.addEventListener('click', () => sendValue('0'));
 
+// Event Listener für die neuen Licht- und Blinker-Buttons
+// Licht an (sendet 5), Licht aus (sendet 6), Blinken links (sendet 7), Blinken rechts (sendet 8)
+const lichtAn = document.getElementById('lichtAn');
+const lichtAus = document.getElementById('lichtAus');
+const blinkenLinks = document.getElementById('blinkenLinks');
+const blinkenRechts = document.getElementById('blinkenRechts');
+
+if (lichtAn) lichtAn.addEventListener('click', () => sendValue('5'));
+if (lichtAus) lichtAus.addEventListener('click', () => sendValue('6'));
+if (blinkenLinks) blinkenLinks.addEventListener('click', () => sendValue('7'));
+if (blinkenRechts) blinkenRechts.addEventListener('click', () => sendValue('8'));
+
+// --- Keylistener für Tastatursteuerung ---
+// Merkt sich den aktuellen Status für jede Richtung
+let directionState = {
+  up: false,
+  down: false,
+  left: false,
+  right: false
+};
+// Merkt sich, ob das Licht an ist
+let lightOn = false;
+
+document.addEventListener('keydown', function(e) {
+  // Richtungstasten mit Toggle/Stop
+  if (e.code === 'ArrowUp') {
+    if (directionState.up) {
+      sendValue('0'); // Stopp
+      directionState.up = false;
+    } else {
+      sendValue('1');
+      directionState = {up: true, down: false, left: false, right: false};
+    }
+  } else if (e.code === 'ArrowDown') {
+    if (directionState.down) {
+      sendValue('0'); // Stopp
+      directionState.down = false;
+    } else {
+      sendValue('2');
+      directionState = {up: false, down: true, left: false, right: false};
+    }
+  } else if (e.code === 'ArrowLeft') {
+    if (directionState.left) {
+      sendValue('0'); // Stopp
+      directionState.left = false;
+    } else {
+      sendValue('3');
+      directionState = {up: false, down: false, left: true, right: false};
+    }
+  } else if (e.code === 'ArrowRight') {
+    if (directionState.right) {
+      sendValue('0'); // Stopp
+      directionState.right = false;
+    } else {
+      sendValue('4');
+      directionState = {up: false, down: false, left: false, right: true};
+    }
+  }
+  // Licht toggeln mit Leertaste
+  else if (e.code === 'Space') {
+    if (!lightOn) {
+      sendValue('5'); // Licht an
+      lightOn = true;
+    } else {
+      sendValue('6'); // Licht aus
+      lightOn = false;
+    }
+  }
+  // Blinken links/rechts
+  else if (e.key === 'a' || e.key === 'A') {
+    sendValue('7');
+  } else if (e.key === 'd' || e.key === 'D') {
+    sendValue('8');
+  }
+});
+
+
 setStatus(false);
 log('micro:bit Web Bluetooth UART gestartet');
